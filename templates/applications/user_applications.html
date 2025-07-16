@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Job Applications</h2>
+
+    {% if applications %}
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Applied On</th>
+                <th>Status</th>
+                <th>CV</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td><a href="{% url 'job_detail' app.job.id %}">{{ app.job.title }}</a></td>
+                <td>{{ app.applied_at|date:"M d, Y H:i" }}</td>
+                <td>{{ app.status|default:"Pending" }}</td>
+                <td>
+                    {% if app.resume %}
+                        <a href="{{ app.resume.url }}" target="_blank">View CV</a>
+                    {% else %}
+                        No CV
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>You have not applied to any jobs yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

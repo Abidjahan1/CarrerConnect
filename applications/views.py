@@ -29,3 +29,8 @@ def apply_job(request, job_id):
     return render(request, 'applications/apply.html', {'form': form, 'job': job})
 
 
+
+@login_required
+def user_applications(request):
+    applications = JobApplication.objects.filter(user=request.user).order_by('-applied_at')
+    return render(request, 'applications/user_applications.html', {'applications': applications})
