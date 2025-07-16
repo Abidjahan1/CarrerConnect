@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+   
+    <h2 class="text-center">Open Job Positions</h2>
+    <div class="row mt-4"></div>
+    <div class="row mt-4">
+        {% for job in jobs %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ job.title }}</h5>
+                    <p class="card-text">{{ job.description|truncatechars:120 }}</p>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Qualifications:</strong> {{ job.qualifications|truncatechars:80 }}</p>
+                    <a href="{% url 'job_detail' job.id %}" class="btn btn-primary"> View Details </a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

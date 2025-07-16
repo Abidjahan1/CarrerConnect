@@ -1,0 +1,14 @@
+
+Create project folder
+[
+mkdir CareerConnect
+cd CareerConnect
+python -m venv env
+env\Scripts\activate on Windows
+
+]
+
+install dependency
+[pip install django psycopg2-binary] # django webframework , psycopg2-binary: PostgreSQL adapter for Django
+
+python manage.py startapp accounts = create accounts app
