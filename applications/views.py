@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import JobApplicationForm
@@ -9,6 +10,11 @@ from django.contrib import messages
 def apply_job(request, job_id):
     job = get_object_or_404(JobPost, id=job_id)
 
+
+    if job.deadline < timezone.now().date():
+        messages.error(request, "This job posting has expired.")
+        return redirect('job_detail', job_id=job.id)
+    
     # Prevent duplicate applications
     if JobApplication.objects.filter(user=request.user, job=job).exists():
         messages.warning(request, 'You have already applied for this job.')

@@ -12,7 +12,11 @@
             <p><strong>Qualifications:</strong><br>{{ job.qualifications }}</p>
 
             {% if user.is_authenticated %}
-                <a href="{% url 'apply_job' job.id %}" class="btn btn-success mt-3">Apply Now</a>
+                {% if job.is_expired %}
+                    <p class="text-danger font-weight-bold">This job posting has expired.</p>
+                {% else %}
+                    <a href="{% url 'apply_job' job.id %}" class="btn btn-primary">Apply Now</a>
+                {% endif %}
             {% else %}
                 <p class="text-muted mt-3">Please <a href="{% url 'login' %}">login</a> to apply.</p>
             {% endif %}

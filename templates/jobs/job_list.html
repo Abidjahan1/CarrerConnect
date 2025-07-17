@@ -11,6 +11,12 @@
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">{{ job.title }}</h5>
+                    <p>Deadline: {{ job.deadline }}</p>
+                    {% if job.is_expired %}
+                        <span class="badge badge-danger">Expired</span>
+                    {% else %}
+                        <span class="badge badge-success">Open</span>
+                    {% endif %}
                     <p class="card-text">{{ job.description|truncatechars:120 }}</p>
                     <p><strong>Location:</strong> {{ job.location }}</p>
                     <p><strong>Qualifications:</strong> {{ job.qualifications|truncatechars:80 }}</p>

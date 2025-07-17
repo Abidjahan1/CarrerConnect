@@ -19,7 +19,19 @@
             <tr>
                 <td><a href="{% url 'job_detail' app.job.id %}">{{ app.job.title }}</a></td>
                 <td>{{ app.applied_at|date:"M d, Y H:i" }}</td>
-                <td>{{ app.status|default:"Pending" }}</td>
+                <td>
+                    {% if app.status == 'pending' %}
+                        <span class="badge bg-secondary">Pending</span>
+                    {% elif app.status == 'shortlisted' %}
+                        <span class="badge bg-info text-dark">Shortlisted</span>
+                    {% elif app.status == 'rejected' %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% elif app.status == 'hired' %}
+                        <span class="badge bg-success">Hired</span>
+                    {% else %}
+                        <span class="badge bg-light text-dark">Unknown</span>
+                    {% endif %}
+                </td>
                 <td>
                     {% if app.resume %}
                         <a href="{{ app.resume.url }}" target="_blank">View CV</a>
